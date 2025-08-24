@@ -15,7 +15,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', sans-serif;
             background: #0a0a0a;
             min-height: 100vh;
             color: #333;
@@ -30,12 +30,12 @@
             background: #ffffff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+            box-shadow: 0 0 60px rgba(0,0,0,0.4);
         }
 
         .header {
-            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
-            padding: 25px 20px 30px;
+            background: linear-gradient(135deg, #FAD376 0%, #f5c842 50%, #FAD376 100%);
+            padding: 30px 20px 35px;
             color: #1a1a1a;
             position: relative;
             overflow: hidden;
@@ -48,7 +48,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
         }
 
         .header-content {
@@ -58,33 +58,33 @@
         }
 
         .header h1 {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.8px;
         }
 
         .header p {
-            font-size: 15px;
-            opacity: 0.8;
-            font-weight: 400;
+            font-size: 16px;
+            opacity: 0.85;
+            font-weight: 500;
         }
 
         .accent-bar {
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%);
-            width: 60px;
-            margin: 15px auto 0;
+            width: 80px;
+            margin: 18px auto 0;
             border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .content {
-            padding: 30px 20px;
-            padding-bottom: 120px;
+            padding: 35px 20px 40px;
         }
 
         .search-section {
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .search-container {
@@ -93,57 +93,68 @@
 
         .search-input {
             width: 100%;
-            padding: 18px 50px 18px 20px;
-            border: 1px solid #e8e8e8;
-            border-radius: 16px;
+            padding: 20px 55px 20px 24px;
+            border: 2px solid #f0f0f0;
+            border-radius: 20px;
             font-size: 16px;
             background: #fafafa;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             color: #333;
             font-weight: 500;
         }
 
         .search-input:focus {
             outline: none;
-            border-color: #1a1a1a;
+            border-color: #FAD376;
             background: white;
-            box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.1);
+            box-shadow: 0 0 0 6px rgba(250, 211, 118, 0.08);
+            transform: scale(1.01);
+        }
+
+        .search-input::placeholder {
+            color: #999;
+            font-weight: 400;
         }
 
         .search-icon {
             position: absolute;
-            right: 18px;
+            right: 22px;
             top: 50%;
             transform: translateY(-50%);
             color: #999;
-            font-size: 18px;
+            font-size: 20px;
             pointer-events: none;
+            transition: color 0.3s ease;
+        }
+
+        .search-input:focus + .search-icon {
+            color: #FAD376;
         }
 
         .section-title {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 26px;
+            font-weight: 800;
             color: #1a1a1a;
-            margin-bottom: 20px;
-            letter-spacing: -0.3px;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
         }
 
         .category-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 45px;
         }
 
         .category-card {
             background: white;
-            border-radius: 20px;
-            padding: 24px 16px;
+            border-radius: 24px;
+            padding: 28px 18px;
             text-align: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-            border: 1px solid #f5f5f5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 2px solid #f8f8f8;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
         }
@@ -154,37 +165,37 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%);
+            height: 4px;
+            background: linear-gradient(90deg, #FAD376 0%, #f5c842 100%);
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .category-card:active {
-            transform: scale(0.96);
+            transform: scale(0.94);
         }
 
-        .category-card:hover::before,
-        .category-card.active::before {
+        .category-card:hover::before {
             transform: scaleX(1);
         }
 
         .category-card:hover {
-            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(250, 211, 118, 0.15);
+            transform: translateY(-4px);
+            border-color: #FAD376;
         }
 
         .category-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
+            font-size: 42px;
+            margin-bottom: 16px;
             display: block;
-            filter: grayscale(20%);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .category-name {
-            font-weight: 600;
-            font-size: 15px;
+            font-weight: 700;
+            font-size: 16px;
             color: #1a1a1a;
             letter-spacing: -0.2px;
         }
@@ -199,48 +210,49 @@
 
         .doctor-card {
             background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.06);
-            border: 1px solid #f5f5f5;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border: 2px solid #f8f8f8;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
         .doctor-card:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
         }
 
         .doctor-card:hover {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            transform: translateY(-1px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
         }
 
         .doctor-card.selected {
-            border-color: #1a1a1a;
-            box-shadow: 0 8px 32px rgba(26, 26, 26, 0.15);
-            background: linear-gradient(135deg, #fffcf0 0%, #ffffff 100%);
+            border-color: #FAD376;
+            box-shadow: 0 12px 40px rgba(250, 211, 118, 0.2);
+            background: linear-gradient(135deg, #fffbf0 0%, #ffffff 100%);
         }
 
         .doctor-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
             background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #1a1a1a;
-            font-weight: 700;
-            font-size: 18px;
+            font-weight: 800;
+            font-size: 20px;
             flex-shrink: 0;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(250, 211, 118, 0.3);
         }
 
         .doctor-avatar::before {
@@ -250,7 +262,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
         }
 
         .doctor-info {
@@ -259,112 +271,100 @@
         }
 
         .doctor-name {
-            font-weight: 700;
-            font-size: 17px;
+            font-weight: 800;
+            font-size: 18px;
             color: #1a1a1a;
-            margin-bottom: 4px;
-            letter-spacing: -0.2px;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
         }
 
         .doctor-specialty {
             color: #666;
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 15px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
 
         .doctor-rating {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .stars {
-            color: #1a1a1a;
-            font-size: 14px;
+            color: #FAD376;
+            font-size: 16px;
             font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .rating-text {
             color: #888;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        .bottom-nav {
+        .floating-book-btn {
             position: fixed;
-            bottom: 0;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
-            max-width: 400px;
-            background: white;
+            width: calc(100% - 40px);
+            max-width: 360px;
             padding: 20px;
-            box-shadow: 0 -8px 32px rgba(0,0,0,0.12);
-            border-top: 1px solid #f5f5f5;
-            backdrop-filter: blur(20px);
-        }
-
-        .book-btn {
-            width: 100%;
-            padding: 18px;
             background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
             color: #1a1a1a;
             border: none;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 700;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: none;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 16px 32px rgba(250, 211, 118, 0.4);
             letter-spacing: -0.2px;
+            z-index: 100;
         }
 
-        .book-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .book-btn:hover::before {
-            opacity: 1;
-        }
-
-        .book-btn.active {
+        .floating-book-btn.active {
             display: block;
+            animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .book-btn:active {
-            transform: scale(0.98);
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
         }
 
-        .book-btn:disabled {
+        .floating-book-btn:active {
+            transform: translateX(-50%) scale(0.96);
+        }
+
+        .floating-book-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
         }
 
         .loading {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             color: #666;
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #f5f5f5;
-            border-top: 3px solid #1a1a1a;
+            width: 44px;
+            height: 44px;
+            border: 4px solid #f5f5f5;
+            border-top: 4px solid #FAD376;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 24px;
         }
 
         @keyframes spin {
@@ -373,25 +373,27 @@
         }
 
         .loading-text {
-            font-weight: 500;
-            font-size: 16px;
+            font-weight: 600;
+            font-size: 18px;
+            color: #666;
         }
 
         .back-btn {
             position: absolute;
-            top: 25px;
+            top: 30px;
             left: 20px;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.1);
             border: none;
             color: #1a1a1a;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 14px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             display: none;
             backdrop-filter: blur(20px);
             transition: all 0.3s ease;
             z-index: 10;
+            font-weight: bold;
         }
 
         .back-btn.active {
@@ -399,7 +401,8 @@
         }
 
         .back-btn:hover {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
+            transform: scale(1.05);
         }
 
         .success-modal {
@@ -408,66 +411,81 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
         }
 
         .success-modal.active {
             display: flex;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
             background: white;
-            padding: 40px 30px;
-            border-radius: 24px;
+            padding: 45px 35px;
+            border-radius: 28px;
             text-align: center;
-            max-width: 320px;
+            max-width: 340px;
             margin: 20px;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+            box-shadow: 0 32px 64px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes modalPop {
+            to { transform: scale(1); }
         }
 
         .success-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            color: #FAD376;
-            margin: 0 auto 20px;
+            font-size: 36px;
+            color: #1a1a1a;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 24px rgba(250, 211, 118, 0.4);
         }
 
         .modal-title {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 800;
             color: #1a1a1a;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
+            margin-bottom: 12px;
+            letter-spacing: -0.4px;
         }
 
         .modal-text {
             color: #666;
-            font-size: 15px;
-            margin-bottom: 24px;
+            font-size: 16px;
+            margin-bottom: 32px;
             font-weight: 500;
+            line-height: 1.5;
         }
 
         .modal-btn {
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: white;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
+            color: #1a1a1a;
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 15px;
+            font-weight: 700;
+            font-size: 16px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(250, 211, 118, 0.3);
         }
 
         .modal-btn:active {
@@ -476,45 +494,65 @@
 
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             color: #666;
         }
 
         .empty-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.5;
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
         }
 
         .empty-text {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
+            color: #666;
         }
 
+        /* Responsive Design */
         @media (max-width: 380px) {
             .container {
                 max-width: 100%;
             }
             
             .content {
-                padding: 25px 15px 120px;
+                padding: 30px 16px 40px;
             }
             
             .category-grid {
-                gap: 12px;
+                gap: 14px;
             }
             
             .category-card {
-                padding: 20px 12px;
+                padding: 24px 14px;
             }
             
             .doctor-card {
-                padding: 16px;
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .doctor-avatar {
+                width: 64px;
+                height: 64px;
+                font-size: 18px;
             }
         }
 
-        @media (prefers-color-scheme: dark) {
-            /* Dark mode support ready */
+        @media (max-height: 700px) {
+            .header {
+                padding: 25px 20px 30px;
+            }
+            
+            .content {
+                padding: 30px 20px 40px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -575,11 +613,9 @@
             </div>
         </div>
 
-        <div class="bottom-nav">
-            <button id="bookBtn" class="book-btn" onclick="bookAppointment()">
-                Book Appointment
-            </button>
-        </div>
+        <button id="floatingBookBtn" class="floating-book-btn" onclick="bookAppointment()">
+            Book Appointment
+        </button>
 
         <div id="successModal" class="success-modal">
             <div class="modal-content">
@@ -640,7 +676,7 @@
 
             setTimeout(() => {
                 loading.style.display = 'none';
-                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 20px;">${category.charAt(0).toUpperCase() + category.slice(1)} Specialists</h2>`;
+                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 25px;">${category.charAt(0).toUpperCase() + category.slice(1)} Specialists</h2>`;
                 
                 doctors[category].forEach(doctor => {
                     const doctorCard = createDoctorCard(doctor);
@@ -682,7 +718,7 @@
 
             cardElement.classList.add('selected');
             selectedDoctor = doctor;
-            document.getElementById('bookBtn').classList.add('active');
+            document.getElementById('floatingBookBtn').classList.add('active');
             
             // Haptic feedback
             if (navigator.vibrate) {
@@ -693,7 +729,7 @@
         function bookAppointment() {
             if (!selectedDoctor) return;
 
-            const bookBtn = document.getElementById('bookBtn');
+            const bookBtn = document.getElementById('floatingBookBtn');
             bookBtn.innerHTML = 'Processing...';
             bookBtn.disabled = true;
 
@@ -715,7 +751,7 @@
             const categories = document.getElementById('categories');
             const doctorsList = document.getElementById('doctorsList');
             const backBtn = document.querySelector('.back-btn');
-            const bookBtn = document.getElementById('bookBtn');
+            const bookBtn = document.getElementById('floatingBookBtn');
 
             categories.style.display = 'block';
             doctorsList.classList.remove('active');
@@ -742,7 +778,7 @@
 
             setTimeout(() => {
                 loading.style.display = 'none';
-                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 20px;">Search Results</h2>`;
+                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 25px;">Search Results</h2>`;
 
                 let found = false;
                 Object.keys(doctors).forEach(category => {
@@ -787,37 +823,35 @@
             }
         });
 
-        // Intersection Observer for animations
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            // Observe elements when they're created
-            function observeElements() {
-                document.querySelectorAll('.doctor-card, .category-card').forEach(el => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(20px)';
-                    el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                    observer.observe(el);
-                });
+        // Prevent body scroll when modal is open
+        document.getElementById('successModal').addEventListener('transitionstart', function(e) {
+            if (e.target.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
             }
+        });
 
-            // Call after DOM updates
-            const originalCreateDoctorCard = createDoctorCard;
-            createDoctorCard = function(doctor) {
-                const card = originalCreateDoctorCard(doctor);
-                setTimeout(() => observeElements(), 100);
-                return card;
-            };
+        document.getElementById('successModal').addEventListener('transitionend', function(e) {
+            if (!e.target.classList.contains('active')) {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Smooth card animations on load
+        function animateCards() {
+            const cards = document.querySelectorAll('.doctor-card, .category-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
         }
+
+        // Call animation on page load
+        window.addEventListener('load', animateCards);
     </script>
 </body>
 </html>
