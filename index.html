@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>E-Doctor Channeling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            color: #333;
+            touch-action: manipulation;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
+            padding: 25px 20px 30px;
+            color: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%);
+            width: 60px;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .content {
+            padding: 30px 20px;
+            padding-bottom: 120px;
+        }
+
+        .search-section {
+            margin-bottom: 35px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            border: 1px solid #e8e8e8;
+            border-radius: 16px;
+            font-size: 16px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .category-card:active {
+            transform: scale(0.96);
+        }
+
+        .category-card:hover::before,
+        .category-card.active::before {
+            transform: scaleX(1);
+        }
+
+        .category-card:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .category-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+            display: block;
+            filter: grayscale(20%);
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #1a1a1a;
+            letter-spacing: -0.2px;
+        }
+
+        .doctors-list {
+            display: none;
+        }
+
+        .doctors-list.active {
+            display: block;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+            border: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .doctor-card:active {
+            transform: scale(0.98);
+        }
+
+        .doctor-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .doctor-card.selected {
+            border-color: #1a1a1a;
+            box-shadow: 0 8px 32px rgba(26, 26, 26, 0.15);
+            background: linear-gradient(135deg, #fffcf0 0%, #ffffff 100%);
+        }
+
+        .doctor-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .doctor-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .doctor-name {
+            font-weight: 700;
+            font-size: 17px;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .doctor-specialty {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .doctor-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stars {
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .rating-text {
+            color: #888;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 -8px 32px rgba(0,0,0,0.12);
+            border-top: 1px solid #f5f5f5;
+            backdrop-filter: blur(20px);
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: none;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: -0.2px;
+        }
+
+        .book-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-btn:hover::before {
+            opacity: 1;
+        }
+
+        .book-btn.active {
+            display: block;
+        }
+
+        .book-btn:active {
+            transform: scale(0.98);
+        }
+
+        .book-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f5f5f5;
+            border-top: 3px solid #1a1a1a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border: none;
+            color: #1a1a1a;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .back-btn.active {
+            display: block;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .success-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            max-width: 320px;
+            margin: 20px;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #FAD376;
+            margin: 0 auto 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .modal-text {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .modal-btn {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.96);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .content {
+                padding: 25px 15px 120px;
+            }
+            
+            .category-grid {
+                gap: 12px;
+            }
+            
+            .category-card {
+                padding: 20px 12px;
+            }
+            
+            .doctor-card {
+                padding: 16px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            /* Dark mode support ready */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="header-content">
+                <h1>Doctor Channeling</h1>
+                <p>Premium healthcare at your fingertips</p>
+                <div class="accent-bar"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search doctors or specialties" oninput="searchDoctors(this.value)">
+                    <div class="search-icon">🔍</div>
+                </div>
+            </div>
+
+            <div id="categories">
+                <h2 class="section-title">Specialties</h2>
+                <div class="category-grid">
+                    <div class="category-card" onclick="showDoctors('cardiology')">
+                        <span class="category-icon">🫀</span>
+                        <div class="category-name">Cardiology</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('neurology')">
+                        <span class="category-icon">🧠</span>
+                        <div class="category-name">Neurology</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('pediatrics')">
+                        <span class="category-icon">👶🏻</span>
+                        <div class="category-name">Pediatrics</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('orthopedics')">
+                        <span class="category-icon">🦴</span>
+                        <div class="category-name">Orthopedics</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('dermatology')">
+                        <span class="category-icon">✨</span>
+                        <div class="category-name">Dermatology</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('psychiatry')">
+                        <span class="category-icon">🧘🏻</span>
+                        <div class="category-name">Psychiatry</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="doctorsList" class="doctors-list"></div>
+            
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p class="loading-text">Loading doctors...</p>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button id="bookBtn" class="book-btn" onclick="bookAppointment()">
+                Book Appointment
+            </button>
+        </div>
+
+        <div id="successModal" class="success-modal">
+            <div class="modal-content">
+                <div class="success-icon">✓</div>
+                <h3 class="modal-title">Appointment Confirmed</h3>
+                <p class="modal-text">You'll receive a confirmation email shortly with appointment details.</p>
+                <button class="modal-btn" onclick="closeModal()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const doctors = {
+            cardiology: [
+                { name: "Dr. Sarah Mitchell", specialty: "Interventional Cardiologist", rating: 4.9, reviews: 342 },
+                { name: "Dr. James Richardson", specialty: "Cardiac Surgeon", rating: 4.8, reviews: 278 },
+                { name: "Dr. Maria Santos", specialty: "Heart Specialist", rating: 4.7, reviews: 195 }
+            ],
+            neurology: [
+                { name: "Dr. David Chen", specialty: "Neurological Surgeon", rating: 4.9, reviews: 289 },
+                { name: "Dr. Lisa Thompson", specialty: "Neurologist", rating: 4.8, reviews: 234 },
+                { name: "Dr. Ahmed Hassan", specialty: "Brain Specialist", rating: 4.6, reviews: 167 }
+            ],
+            pediatrics: [
+                { name: "Dr. Emily Watson", specialty: "Pediatric Specialist", rating: 4.9, reviews: 456 },
+                { name: "Dr. Michael Davis", specialty: "Child Healthcare", rating: 4.7, reviews: 312 },
+                { name: "Dr. Anna Rodriguez", specialty: "Pediatric Surgeon", rating: 4.8, reviews: 198 }
+            ],
+            orthopedics: [
+                { name: "Dr. Robert Johnson", specialty: "Orthopedic Surgeon", rating: 4.8, reviews: 378 },
+                { name: "Dr. Jennifer Walsh", specialty: "Sports Medicine", rating: 4.7, reviews: 245 },
+                { name: "Dr. Carlos Martinez", specialty: "Bone Specialist", rating: 4.9, reviews: 189 }
+            ],
+            dermatology: [
+                { name: "Dr. Sophie Williams", specialty: "Dermatologist", rating: 4.8, reviews: 523 },
+                { name: "Dr. Ryan Park", specialty: "Cosmetic Dermatology", rating: 4.7, reviews: 298 },
+                { name: "Dr. Elena Petrov", specialty: "Skin Specialist", rating: 4.9, reviews: 234 }
+            ],
+            psychiatry: [
+                { name: "Dr. Marcus Brown", specialty: "Psychiatrist", rating: 4.8, reviews: 156 },
+                { name: "Dr. Rachel Green", specialty: "Mental Health", rating: 4.9, reviews: 189 },
+                { name: "Dr. Daniel Kim", specialty: "Behavioral Health", rating: 4.6, reviews: 143 }
+            ]
+        };
+
+        let selectedDoctor = null;
+        let currentCategory = null;
+
+        function showDoctors(category) {
+            currentCategory = category;
+            const loading = document.getElementById('loading');
+            const categories = document.getElementById('categories');
+            const doctorsList = document.getElementById('doctorsList');
+            const backBtn = document.querySelector('.back-btn');
+
+            categories.style.display = 'none';
+            loading.style.display = 'block';
+
+            setTimeout(() => {
+                loading.style.display = 'none';
+                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 20px;">${category.charAt(0).toUpperCase() + category.slice(1)} Specialists</h2>`;
+                
+                doctors[category].forEach(doctor => {
+                    const doctorCard = createDoctorCard(doctor);
+                    doctorsList.appendChild(doctorCard);
+                });
+
+                doctorsList.classList.add('active');
+                backBtn.classList.add('active');
+            }, 1000);
+        }
+
+        function createDoctorCard(doctor) {
+            const card = document.createElement('div');
+            card.className = 'doctor-card';
+            card.onclick = () => selectDoctor(doctor, card);
+
+            const initials = doctor.name.split(' ').slice(-2).map(n => n[0]).join('');
+            const stars = '★'.repeat(Math.floor(doctor.rating)) + (doctor.rating % 1 ? '☆' : '');
+
+            card.innerHTML = `
+                <div class="doctor-avatar">${initials}</div>
+                <div class="doctor-info">
+                    <div class="doctor-name">${doctor.name}</div>
+                    <div class="doctor-specialty">${doctor.specialty}</div>
+                    <div class="doctor-rating">
+                        <span class="stars">${stars}</span>
+                        <span class="rating-text">${doctor.rating} • ${doctor.reviews} reviews</span>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function selectDoctor(doctor, cardElement) {
+            document.querySelectorAll('.doctor-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            cardElement.classList.add('selected');
+            selectedDoctor = doctor;
+            document.getElementById('bookBtn').classList.add('active');
+            
+            // Haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function bookAppointment() {
+            if (!selectedDoctor) return;
+
+            const bookBtn = document.getElementById('bookBtn');
+            bookBtn.innerHTML = 'Processing...';
+            bookBtn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('successModal').classList.add('active');
+                bookBtn.innerHTML = 'Book Appointment';
+                bookBtn.disabled = false;
+            }, 2000);
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+            setTimeout(() => {
+                goBack();
+            }, 300);
+        }
+
+        function goBack() {
+            const categories = document.getElementById('categories');
+            const doctorsList = document.getElementById('doctorsList');
+            const backBtn = document.querySelector('.back-btn');
+            const bookBtn = document.getElementById('bookBtn');
+
+            categories.style.display = 'block';
+            doctorsList.classList.remove('active');
+            backBtn.classList.remove('active');
+            bookBtn.classList.remove('active');
+            
+            selectedDoctor = null;
+            currentCategory = null;
+        }
+
+        function searchDoctors(query) {
+            if (!query.trim()) {
+                if (currentCategory) return;
+                goBack();
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const categories = document.getElementById('categories');
+            const doctorsList = document.getElementById('doctorsList');
+
+            categories.style.display = 'none';
+            loading.style.display = 'block';
+
+            setTimeout(() => {
+                loading.style.display = 'none';
+                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 20px;">Search Results</h2>`;
+
+                let found = false;
+                Object.keys(doctors).forEach(category => {
+                    doctors[category].forEach(doctor => {
+                        if (doctor.name.toLowerCase().includes(query.toLowerCase()) ||
+                            doctor.specialty.toLowerCase().includes(query.toLowerCase()) ||
+                            category.toLowerCase().includes(query.toLowerCase())) {
+                            const doctorCard = createDoctorCard(doctor);
+                            doctorsList.appendChild(doctorCard);
+                            found = true;
+                        }
+                    });
+                });
+
+                if (!found) {
+                    const emptyState = document.createElement('div');
+                    emptyState.className = 'empty-state';
+                    emptyState.innerHTML = `
+                        <div class="empty-icon">🔍</div>
+                        <p class="empty-text">No doctors found for "${query}"</p>
+                    `;
+                    doctorsList.appendChild(emptyState);
+                }
+
+                doctorsList.classList.add('active');
+                document.querySelector('.back-btn').classList.add('active');
+            }, 800);
+        }
+
+        // Performance optimizations
+        document.addEventListener('touchstart', function() {}, true);
+        
+        function vibrate() {
+            if (navigator.vibrate) {
+                navigator.vibrate(30);
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('button, .category-card, .doctor-card')) {
+                vibrate();
+            }
+        });
+
+        // Intersection Observer for animations
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe elements when they're created
+            function observeElements() {
+                document.querySelectorAll('.doctor-card, .category-card').forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    observer.observe(el);
+                });
+            }
+
+            // Call after DOM updates
+            const originalCreateDoctorCard = createDoctorCard;
+            createDoctorCard = function(doctor) {
+                const card = originalCreateDoctorCard(doctor);
+                setTimeout(() => observeElements(), 100);
+                return card;
+            };
+        }
+    </script>
+</body>
+</html>
