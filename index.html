@@ -14,29 +14,46 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        :root {
+            --primary-gradient: linear-gradient(135deg, #FAD376 0%, #f5c842 50%, #FAD376 100%);
+            --primary-color: #FAD376;
+            --text-dark: #1a1a1a;
+            --text-medium: #666;
+            --text-light: #999;
+            --bg-light: #fafafa;
+            --border-light: #f0f0f0;
+            --shadow-light: rgba(0,0,0,0.04);
+            --shadow-medium: rgba(0,0,0,0.08);
+            --border-radius: 20px;
+            --border-radius-large: 24px;
+            --border-radius-small: 16px;
+            --container-max-width: 400px;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', sans-serif;
-            background: #0a0a0a;
+            background: #f5f5f5;
             min-height: 100vh;
-            color: #333;
+            color: var(--text-dark);
             touch-action: manipulation;
             -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 400px;
+            max-width: var(--container-max-width);
             margin: 0 auto;
             min-height: 100vh;
             background: #ffffff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 60px rgba(0,0,0,0.4);
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
         }
 
         .header {
-            background: linear-gradient(135deg, #FAD376 0%, #f5c842 50%, #FAD376 100%);
+            background: var(--primary-gradient);
             padding: 30px 20px 35px;
-            color: #1a1a1a;
+            color: var(--text-dark);
             position: relative;
             overflow: hidden;
         }
@@ -58,7 +75,7 @@
         }
 
         .header h1 {
-            font-size: 32px;
+            font-size: clamp(28px, 8vw, 32px);
             font-weight: 800;
             margin-bottom: 8px;
             letter-spacing: -0.8px;
@@ -72,7 +89,7 @@
 
         .accent-bar {
             height: 3px;
-            background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: linear-gradient(90deg, var(--text-dark) 0%, #2d2d2d 100%);
             width: 80px;
             margin: 18px auto 0;
             border-radius: 2px;
@@ -80,11 +97,12 @@
         }
 
         .content {
-            padding: 35px 20px 40px;
+            padding: 35px 20px 120px;
         }
 
         .search-section {
             margin-bottom: 40px;
+            position: relative;
         }
 
         .search-container {
@@ -94,25 +112,25 @@
         .search-input {
             width: 100%;
             padding: 20px 55px 20px 24px;
-            border: 2px solid #f0f0f0;
-            border-radius: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: var(--border-radius);
             font-size: 16px;
-            background: #fafafa;
+            background: var(--bg-light);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #333;
+            color: var(--text-dark);
             font-weight: 500;
         }
 
         .search-input:focus {
             outline: none;
-            border-color: #FAD376;
+            border-color: var(--primary-color);
             background: white;
             box-shadow: 0 0 0 6px rgba(250, 211, 118, 0.08);
             transform: scale(1.01);
         }
 
         .search-input::placeholder {
-            color: #999;
+            color: var(--text-light);
             font-weight: 400;
         }
 
@@ -121,42 +139,74 @@
             right: 22px;
             top: 50%;
             transform: translateY(-50%);
-            color: #999;
+            color: var(--text-light);
             font-size: 20px;
             pointer-events: none;
             transition: color 0.3s ease;
         }
 
         .search-input:focus + .search-icon {
-            color: #FAD376;
+            color: var(--primary-color);
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--text-light);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .clear-search.visible {
+            display: flex;
+        }
+
+        .clear-search:hover {
+            background: var(--text-medium);
         }
 
         .section-title {
-            font-size: 26px;
+            font-size: clamp(22px, 6vw, 26px);
             font-weight: 800;
-            color: #1a1a1a;
+            color: var(--text-dark);
             margin-bottom: 25px;
             letter-spacing: -0.5px;
         }
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 18px;
             margin-bottom: 45px;
         }
 
         .category-card {
             background: white;
-            border-radius: 24px;
+            border-radius: var(--border-radius-large);
             padding: 28px 18px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 30px var(--shadow-light);
             border: 2px solid #f8f8f8;
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .category-card::before {
@@ -166,7 +216,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #FAD376 0%, #f5c842 100%);
+            background: var(--primary-gradient);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -183,11 +233,11 @@
         .category-card:hover {
             box-shadow: 0 16px 40px rgba(250, 211, 118, 0.15);
             transform: translateY(-4px);
-            border-color: #FAD376;
+            border-color: var(--primary-color);
         }
 
         .category-icon {
-            font-size: 42px;
+            font-size: clamp(32px, 8vw, 42px);
             margin-bottom: 16px;
             display: block;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
@@ -195,8 +245,8 @@
 
         .category-name {
             font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
+            font-size: clamp(14px, 4vw, 16px);
+            color: var(--text-dark);
             letter-spacing: -0.2px;
         }
 
@@ -208,15 +258,42 @@
             display: block;
         }
 
+        .filter-section {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 10px 16px;
+            border: 2px solid var(--border-light);
+            border-radius: var(--border-radius-small);
+            background: white;
+            color: var(--text-medium);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: var(--text-dark);
+        }
+
         .doctor-card {
             background: white;
-            border-radius: 24px;
+            border-radius: var(--border-radius-large);
             padding: 24px;
             margin-bottom: 18px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 30px var(--shadow-light);
             border: 2px solid #f8f8f8;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 20px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -228,12 +305,12 @@
         }
 
         .doctor-card:hover {
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 40px var(--shadow-medium);
             transform: translateY(-2px);
         }
 
         .doctor-card.selected {
-            border-color: #FAD376;
+            border-color: var(--primary-color);
             box-shadow: 0 12px 40px rgba(250, 211, 118, 0.2);
             background: linear-gradient(135deg, #fffbf0 0%, #ffffff 100%);
         }
@@ -241,12 +318,12 @@
         .doctor-avatar {
             width: 72px;
             height: 72px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
+            border-radius: var(--border-radius);
+            background: var(--primary-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #1a1a1a;
+            color: var(--text-dark);
             font-weight: 800;
             font-size: 20px;
             flex-shrink: 0;
@@ -270,19 +347,50 @@
             min-width: 0;
         }
 
+        .doctor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
         .doctor-name {
             font-weight: 800;
             font-size: 18px;
-            color: #1a1a1a;
-            margin-bottom: 6px;
+            color: var(--text-dark);
             letter-spacing: -0.3px;
+            margin-bottom: 4px;
+        }
+
+        .availability-badge {
+            background: #10b981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .availability-badge.busy {
+            background: #f59e0b;
+        }
+
+        .availability-badge.offline {
+            background: #ef4444;
         }
 
         .doctor-specialty {
-            color: #666;
+            color: var(--text-medium);
             font-size: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 500;
+        }
+
+        .doctor-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .doctor-rating {
@@ -292,7 +400,7 @@
         }
 
         .stars {
-            color: #FAD376;
+            color: var(--primary-color);
             font-size: 16px;
             font-weight: bold;
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
@@ -304,6 +412,20 @@
             font-weight: 600;
         }
 
+        .doctor-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-medium);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         .floating-book-btn {
             position: fixed;
             bottom: 30px;
@@ -312,10 +434,10 @@
             width: calc(100% - 40px);
             max-width: 360px;
             padding: 20px;
-            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
-            color: #1a1a1a;
+            background: var(--primary-gradient);
+            color: var(--text-dark);
             border: none;
-            border-radius: 20px;
+            border-radius: var(--border-radius);
             font-size: 18px;
             font-weight: 800;
             cursor: pointer;
@@ -354,14 +476,14 @@
         .loading {
             text-align: center;
             padding: 80px 20px;
-            color: #666;
+            color: var(--text-medium);
         }
 
         .spinner {
             width: 44px;
             height: 44px;
             border: 4px solid #f5f5f5;
-            border-top: 4px solid #FAD376;
+            border-top: 4px solid var(--primary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 24px;
@@ -375,7 +497,7 @@
         .loading-text {
             font-weight: 600;
             font-size: 18px;
-            color: #666;
+            color: var(--text-medium);
         }
 
         .back-btn {
@@ -384,9 +506,9 @@
             left: 20px;
             background: rgba(0, 0, 0, 0.1);
             border: none;
-            color: #1a1a1a;
+            color: var(--text-dark);
             padding: 14px;
-            border-radius: 16px;
+            border-radius: var(--border-radius-small);
             cursor: pointer;
             font-size: 20px;
             display: none;
@@ -417,6 +539,7 @@
             justify-content: center;
             z-index: 1000;
             backdrop-filter: blur(12px);
+            padding: 20px;
         }
 
         .success-modal.active {
@@ -434,8 +557,8 @@
             padding: 45px 35px;
             border-radius: 28px;
             text-align: center;
+            width: 100%;
             max-width: 340px;
-            margin: 20px;
             box-shadow: 0 32px 64px rgba(0,0,0,0.3);
             transform: scale(0.9);
             animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -448,13 +571,13 @@
         .success-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
+            background: var(--primary-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 36px;
-            color: #1a1a1a;
+            color: var(--text-dark);
             margin: 0 auto 24px;
             box-shadow: 0 8px 24px rgba(250, 211, 118, 0.4);
         }
@@ -462,13 +585,13 @@
         .modal-title {
             font-size: 24px;
             font-weight: 800;
-            color: #1a1a1a;
+            color: var(--text-dark);
             margin-bottom: 12px;
             letter-spacing: -0.4px;
         }
 
         .modal-text {
-            color: #666;
+            color: var(--text-medium);
             font-size: 16px;
             margin-bottom: 32px;
             font-weight: 500;
@@ -477,10 +600,10 @@
 
         .modal-btn {
             padding: 18px 32px;
-            background: linear-gradient(135deg, #FAD376 0%, #f5c842 100%);
-            color: #1a1a1a;
+            background: var(--primary-gradient);
+            color: var(--text-dark);
             border: none;
-            border-radius: 16px;
+            border-radius: var(--border-radius-small);
             cursor: pointer;
             font-weight: 700;
             font-size: 16px;
@@ -495,7 +618,7 @@
         .empty-state {
             text-align: center;
             padding: 80px 20px;
-            color: #666;
+            color: var(--text-medium);
         }
 
         .empty-icon {
@@ -507,36 +630,98 @@
         .empty-text {
             font-size: 18px;
             font-weight: 600;
-            color: #666;
+            color: var(--text-medium);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--primary-gradient);
+            color: var(--text-dark);
+            padding: 16px 24px;
+            border-radius: var(--border-radius-small);
+            font-weight: 600;
+            z-index: 1001;
+            box-shadow: 0 8px 24px rgba(250, 211, 118, 0.4);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
         }
 
         /* Responsive Design */
-        @media (max-width: 380px) {
+        @media (max-width: 480px) {
             .container {
                 max-width: 100%;
             }
             
             .content {
-                padding: 30px 16px 40px;
+                padding: 30px 16px 120px;
             }
             
             .category-grid {
                 gap: 14px;
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .category-card {
-                padding: 24px 14px;
+                padding: 20px 14px;
             }
             
             .doctor-card {
                 padding: 20px;
                 gap: 16px;
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .doctor-avatar {
                 width: 64px;
                 height: 64px;
                 font-size: 18px;
+                align-self: center;
+            }
+
+            .doctor-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .filter-section {
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .filter-section::-webkit-scrollbar {
+                display: none;
+            }
+
+            .floating-book-btn {
+                width: calc(100% - 32px);
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                padding: 25px 16px 30px;
+            }
+
+            .content {
+                padding: 25px 12px 120px;
+            }
+
+            .category-card {
+                padding: 16px 10px;
+            }
+
+            .doctor-card {
+                padding: 16px;
             }
         }
 
@@ -546,20 +731,60 @@
             }
             
             .content {
-                padding: 30px 20px 40px;
+                padding: 25px 20px 120px;
+            }
+
+            .floating-book-btn {
+                bottom: 15px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Dark mode support - removed to keep original white theme */
+        /* @media (prefers-color-scheme: dark) {
+            .container {
+                background: #1a1a1a;
+            }
+
+            .category-card, .doctor-card {
+                background: #2a2a2a;
+                border-color: #3a3a3a;
+                color: #ffffff;
+            }
+
+            .section-title, .doctor-name {
+                color: #ffffff;
+            }
+
+            .modal-content {
+                background: #2a2a2a;
+                color: #ffffff;
+            }
+        } */
 
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
+        }
+
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <button class="back-btn" onclick="goBack()">←</button>
+            <button class="back-btn" onclick="goBack()" aria-label="Go back">←</button>
             <div class="header-content">
                 <h1>Doctor Channeling</h1>
                 <p>Premium healthcare at your fingertips</p>
@@ -570,42 +795,58 @@
         <div class="content">
             <div class="search-section">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search doctors or specialties" oninput="searchDoctors(this.value)">
+                    <input type="text" class="search-input" placeholder="Search doctors or specialties" oninput="searchDoctors(this.value)" autocomplete="off">
+                    <button class="clear-search" onclick="clearSearch()" aria-label="Clear search">×</button>
                     <div class="search-icon">🔍</div>
                 </div>
             </div>
 
             <div id="categories">
-                <h2 class="section-title">Specialties</h2>
+                <h2 class="section-title">Medical Specialties</h2>
                 <div class="category-grid">
-                    <div class="category-card" onclick="showDoctors('cardiology')">
+                    <div class="category-card" onclick="showDoctors('cardiology')" tabindex="0" role="button" aria-label="Cardiology specialists">
                         <span class="category-icon">🫀</span>
                         <div class="category-name">Cardiology</div>
                     </div>
-                    <div class="category-card" onclick="showDoctors('neurology')">
+                    <div class="category-card" onclick="showDoctors('neurology')" tabindex="0" role="button" aria-label="Neurology specialists">
                         <span class="category-icon">🧠</span>
                         <div class="category-name">Neurology</div>
                     </div>
-                    <div class="category-card" onclick="showDoctors('pediatrics')">
+                    <div class="category-card" onclick="showDoctors('pediatrics')" tabindex="0" role="button" aria-label="Pediatrics specialists">
                         <span class="category-icon">👶🏻</span>
                         <div class="category-name">Pediatrics</div>
                     </div>
-                    <div class="category-card" onclick="showDoctors('orthopedics')">
+                    <div class="category-card" onclick="showDoctors('orthopedics')" tabindex="0" role="button" aria-label="Orthopedics specialists">
                         <span class="category-icon">🦴</span>
                         <div class="category-name">Orthopedics</div>
                     </div>
-                    <div class="category-card" onclick="showDoctors('dermatology')">
+                    <div class="category-card" onclick="showDoctors('dermatology')" tabindex="0" role="button" aria-label="Dermatology specialists">
                         <span class="category-icon">✨</span>
                         <div class="category-name">Dermatology</div>
                     </div>
-                    <div class="category-card" onclick="showDoctors('psychiatry')">
+                    <div class="category-card" onclick="showDoctors('psychiatry')" tabindex="0" role="button" aria-label="Psychiatry specialists">
                         <span class="category-icon">🧘🏻</span>
                         <div class="category-name">Psychiatry</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('general')" tabindex="0" role="button" aria-label="General Medicine">
+                        <span class="category-icon">🩺</span>
+                        <div class="category-name">General Medicine</div>
+                    </div>
+                    <div class="category-card" onclick="showDoctors('emergency')" tabindex="0" role="button" aria-label="Emergency Care">
+                        <span class="category-icon">🚨</span>
+                        <div class="category-name">Emergency</div>
                     </div>
                 </div>
             </div>
 
-            <div id="doctorsList" class="doctors-list"></div>
+            <div id="doctorsList" class="doctors-list">
+                <div class="filter-section">
+                    <button class="filter-btn active" onclick="filterDoctors('all')">All</button>
+                    <button class="filter-btn" onclick="filterDoctors('available')">Available</button>
+                    <button class="filter-btn" onclick="filterDoctors('top-rated')">Top Rated</button>
+                    <button class="filter-btn" onclick="filterDoctors('nearby')">Nearby</button>
+                </div>
+            </div>
             
             <div id="loading" class="loading" style="display: none;">
                 <div class="spinner"></div>
@@ -614,55 +855,285 @@
         </div>
 
         <button id="floatingBookBtn" class="floating-book-btn" onclick="bookAppointment()">
-            Book Appointment
+            Book Appointment with <span id="selectedDoctorName"></span>
         </button>
 
         <div id="successModal" class="success-modal">
             <div class="modal-content">
                 <div class="success-icon">✓</div>
-                <h3 class="modal-title">Appointment Confirmed</h3>
-                <p class="modal-text">You'll receive a confirmation email shortly with appointment details.</p>
+                <h3 class="modal-title">Appointment Confirmed!</h3>
+                <p class="modal-text">Your appointment with <strong id="confirmedDoctorName"></strong> has been scheduled. You'll receive a confirmation email shortly.</p>
                 <button class="modal-btn" onclick="closeModal()">Done</button>
             </div>
         </div>
+
+        <div id="notification" class="notification"></div>
     </div>
 
     <script>
         const doctors = {
             cardiology: [
-                { name: "Dr. Sarah Mitchell", specialty: "Interventional Cardiologist", rating: 4.9, reviews: 342 },
-                { name: "Dr. James Richardson", specialty: "Cardiac Surgeon", rating: 4.8, reviews: 278 },
-                { name: "Dr. Maria Santos", specialty: "Heart Specialist", rating: 4.7, reviews: 195 }
+                { 
+                    name: "Dr. Sarah Mitchell", 
+                    specialty: "Interventional Cardiologist", 
+                    rating: 4.9, 
+                    reviews: 342,
+                    availability: "available",
+                    experience: "15 years",
+                    location: "2.3 km away",
+                    consultationFee: "$120"
+                },
+                { 
+                    name: "Dr. James Richardson", 
+                    specialty: "Cardiac Surgeon", 
+                    rating: 4.8, 
+                    reviews: 278,
+                    availability: "busy",
+                    experience: "20 years",
+                    location: "1.8 km away",
+                    consultationFee: "$150"
+                },
+                { 
+                    name: "Dr. Maria Santos", 
+                    specialty: "Heart Specialist", 
+                    rating: 4.7, 
+                    reviews: 195,
+                    availability: "available",
+                    experience: "12 years",
+                    location: "3.1 km away",
+                    consultationFee: "$110"
+                }
             ],
             neurology: [
-                { name: "Dr. David Chen", specialty: "Neurological Surgeon", rating: 4.9, reviews: 289 },
-                { name: "Dr. Lisa Thompson", specialty: "Neurologist", rating: 4.8, reviews: 234 },
-                { name: "Dr. Ahmed Hassan", specialty: "Brain Specialist", rating: 4.6, reviews: 167 }
+                { 
+                    name: "Dr. David Chen", 
+                    specialty: "Neurological Surgeon", 
+                    rating: 4.9, 
+                    reviews: 289,
+                    availability: "available",
+                    experience: "18 years",
+                    location: "2.7 km away",
+                    consultationFee: "$140"
+                },
+                { 
+                    name: "Dr. Lisa Thompson", 
+                    specialty: "Neurologist", 
+                    rating: 4.8, 
+                    reviews: 234,
+                    availability: "offline",
+                    experience: "14 years",
+                    location: "4.2 km away",
+                    consultationFee: "$125"
+                },
+                { 
+                    name: "Dr. Ahmed Hassan", 
+                    specialty: "Brain Specialist", 
+                    rating: 4.6, 
+                    reviews: 167,
+                    availability: "available",
+                    experience: "10 years",
+                    location: "5.1 km away",
+                    consultationFee: "$115"
+                }
             ],
             pediatrics: [
-                { name: "Dr. Emily Watson", specialty: "Pediatric Specialist", rating: 4.9, reviews: 456 },
-                { name: "Dr. Michael Davis", specialty: "Child Healthcare", rating: 4.7, reviews: 312 },
-                { name: "Dr. Anna Rodriguez", specialty: "Pediatric Surgeon", rating: 4.8, reviews: 198 }
+                { 
+                    name: "Dr. Emily Watson", 
+                    specialty: "Pediatric Specialist", 
+                    rating: 4.9, 
+                    reviews: 456,
+                    availability: "available",
+                    experience: "16 years",
+                    location: "1.5 km away",
+                    consultationFee: "$100"
+                },
+                { 
+                    name: "Dr. Michael Davis", 
+                    specialty: "Child Healthcare", 
+                    rating: 4.7, 
+                    reviews: 312,
+                    availability: "busy",
+                    experience: "12 years",
+                    location: "2.8 km away",
+                    consultationFee: "$95"
+                },
+                { 
+                    name: "Dr. Anna Rodriguez", 
+                    specialty: "Pediatric Surgeon", 
+                    rating: 4.8, 
+                    reviews: 198,
+                    availability: "available",
+                    experience: "14 years",
+                    location: "3.5 km away",
+                    consultationFee: "$130"
+                }
             ],
             orthopedics: [
-                { name: "Dr. Robert Johnson", specialty: "Orthopedic Surgeon", rating: 4.8, reviews: 378 },
-                { name: "Dr. Jennifer Walsh", specialty: "Sports Medicine", rating: 4.7, reviews: 245 },
-                { name: "Dr. Carlos Martinez", specialty: "Bone Specialist", rating: 4.9, reviews: 189 }
+                { 
+                    name: "Dr. Robert Johnson", 
+                    specialty: "Orthopedic Surgeon", 
+                    rating: 4.8, 
+                    reviews: 378,
+                    availability: "available",
+                    experience: "19 years",
+                    location: "2.1 km away",
+                    consultationFee: "$135"
+                },
+                { 
+                    name: "Dr. Jennifer Walsh", 
+                    specialty: "Sports Medicine", 
+                    rating: 4.7, 
+                    reviews: 245,
+                    availability: "available",
+                    experience: "11 years",
+                    location: "3.7 km away",
+                    consultationFee: "$120"
+                },
+                { 
+                    name: "Dr. Carlos Martinez", 
+                    specialty: "Bone Specialist", 
+                    rating: 4.9, 
+                    reviews: 189,
+                    availability: "busy",
+                    experience: "17 years",
+                    location: "1.9 km away",
+                    consultationFee: "$145"
+                }
             ],
             dermatology: [
-                { name: "Dr. Sophie Williams", specialty: "Dermatologist", rating: 4.8, reviews: 523 },
-                { name: "Dr. Ryan Park", specialty: "Cosmetic Dermatology", rating: 4.7, reviews: 298 },
-                { name: "Dr. Elena Petrov", specialty: "Skin Specialist", rating: 4.9, reviews: 234 }
+                { 
+                    name: "Dr. Sophie Williams", 
+                    specialty: "Dermatologist", 
+                    rating: 4.8, 
+                    reviews: 523,
+                    availability: "available",
+                    experience: "13 years",
+                    location: "2.5 km away",
+                    consultationFee: "$110"
+                },
+                { 
+                    name: "Dr. Ryan Park", 
+                    specialty: "Cosmetic Dermatology", 
+                    rating: 4.7, 
+                    reviews: 298,
+                    availability: "offline",
+                    experience: "9 years",
+                    location: "4.8 km away",
+                    consultationFee: "$160"
+                },
+                { 
+                    name: "Dr. Elena Petrov", 
+                    specialty: "Skin Specialist", 
+                    rating: 4.9, 
+                    reviews: 234,
+                    availability: "available",
+                    experience: "15 years",
+                    location: "3.2 km away",
+                    consultationFee: "$125"
+                }
             ],
             psychiatry: [
-                { name: "Dr. Marcus Brown", specialty: "Psychiatrist", rating: 4.8, reviews: 156 },
-                { name: "Dr. Rachel Green", specialty: "Mental Health", rating: 4.9, reviews: 189 },
-                { name: "Dr. Daniel Kim", specialty: "Behavioral Health", rating: 4.6, reviews: 143 }
+                { 
+                    name: "Dr. Marcus Brown", 
+                    specialty: "Psychiatrist", 
+                    rating: 4.8, 
+                    reviews: 156,
+                    availability: "available",
+                    experience: "16 years",
+                    location: "2.9 km away",
+                    consultationFee: "$140"
+                },
+                { 
+                    name: "Dr. Rachel Green", 
+                    specialty: "Mental Health", 
+                    rating: 4.9, 
+                    reviews: 189,
+                    availability: "busy",
+                    experience: "12 years",
+                    location: "1.7 km away",
+                    consultationFee: "$130"
+                },
+                { 
+                    name: "Dr. Daniel Kim", 
+                    specialty: "Behavioral Health", 
+                    rating: 4.6, 
+                    reviews: 143,
+                    availability: "available",
+                    experience: "8 years",
+                    location: "4.1 km away",
+                    consultationFee: "$115"
+                }
+            ],
+            general: [
+                { 
+                    name: "Dr. Patricia Wilson", 
+                    specialty: "General Practitioner", 
+                    rating: 4.7, 
+                    reviews: 402,
+                    availability: "available",
+                    experience: "18 years",
+                    location: "1.2 km away",
+                    consultationFee: "$80"
+                },
+                { 
+                    name: "Dr. Kevin O'Connor", 
+                    specialty: "Family Medicine", 
+                    rating: 4.8, 
+                    reviews: 356,
+                    availability: "available",
+                    experience: "14 years",
+                    location: "2.4 km away",
+                    consultationFee: "$85"
+                },
+                { 
+                    name: "Dr. Priya Sharma", 
+                    specialty: "Internal Medicine", 
+                    rating: 4.6, 
+                    reviews: 278,
+                    availability: "busy",
+                    experience: "11 years",
+                    location: "3.6 km away",
+                    consultationFee: "$90"
+                }
+            ],
+            emergency: [
+                { 
+                    name: "Dr. Mark Stevens", 
+                    specialty: "Emergency Medicine", 
+                    rating: 4.9, 
+                    reviews: 167,
+                    availability: "available",
+                    experience: "20 years",
+                    location: "0.8 km away",
+                    consultationFee: "$200"
+                },
+                { 
+                    name: "Dr. Laura Chen", 
+                    specialty: "Trauma Specialist", 
+                    rating: 4.8, 
+                    reviews: 134,
+                    availability: "available",
+                    experience: "15 years",
+                    location: "1.1 km away",
+                    consultationFee: "$180"
+                }
             ]
         };
 
         let selectedDoctor = null;
         let currentCategory = null;
+        let currentFilter = 'all';
+        let allDoctors = [];
+
+        function showNotification(message, duration = 3000) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, duration);
+        }
 
         function showDoctors(category) {
             currentCategory = category;
@@ -676,37 +1147,96 @@
 
             setTimeout(() => {
                 loading.style.display = 'none';
-                doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 25px;">${category.charAt(0).toUpperCase() + category.slice(1)} Specialists</h2>`;
-                
-                doctors[category].forEach(doctor => {
-                    const doctorCard = createDoctorCard(doctor);
-                    doctorsList.appendChild(doctorCard);
-                });
-
+                allDoctors = doctors[category];
+                renderDoctors(allDoctors, category);
                 doctorsList.classList.add('active');
                 backBtn.classList.add('active');
-            }, 1000);
+                
+                // Reset filter
+                currentFilter = 'all';
+                updateFilterButtons();
+            }, 800);
+        }
+
+        function renderDoctors(doctorList, category) {
+            const doctorsList = document.getElementById('doctorsList');
+            const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+            
+            const filterSection = doctorsList.querySelector('.filter-section');
+            
+            doctorsList.innerHTML = `
+                <h2 class="section-title" style="margin-bottom: 25px;">${categoryName} Specialists</h2>
+                <div class="filter-section">
+                    <button class="filter-btn active" onclick="filterDoctors('all')">All</button>
+                    <button class="filter-btn" onclick="filterDoctors('available')">Available</button>
+                    <button class="filter-btn" onclick="filterDoctors('top-rated')">Top Rated</button>
+                    <button class="filter-btn" onclick="filterDoctors('nearby')">Nearby</button>
+                </div>
+            `;
+            
+            doctorList.forEach(doctor => {
+                const doctorCard = createDoctorCard(doctor);
+                doctorsList.appendChild(doctorCard);
+            });
+
+            // Animate cards
+            animateCards();
         }
 
         function createDoctorCard(doctor) {
             const card = document.createElement('div');
             card.className = 'doctor-card';
             card.onclick = () => selectDoctor(doctor, card);
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `Select ${doctor.name}, ${doctor.specialty}`);
 
             const initials = doctor.name.split(' ').slice(-2).map(n => n[0]).join('');
             const stars = '★'.repeat(Math.floor(doctor.rating)) + (doctor.rating % 1 ? '☆' : '');
+            
+            const availabilityClass = doctor.availability === 'available' ? '' : 
+                                    doctor.availability === 'busy' ? 'busy' : 'offline';
+            const availabilityText = doctor.availability === 'available' ? 'Available' :
+                                   doctor.availability === 'busy' ? 'Busy' : 'Offline';
 
             card.innerHTML = `
                 <div class="doctor-avatar">${initials}</div>
                 <div class="doctor-info">
-                    <div class="doctor-name">${doctor.name}</div>
+                    <div class="doctor-header">
+                        <div class="doctor-name">${doctor.name}</div>
+                        <div class="availability-badge ${availabilityClass}">${availabilityText}</div>
+                    </div>
                     <div class="doctor-specialty">${doctor.specialty}</div>
-                    <div class="doctor-rating">
-                        <span class="stars">${stars}</span>
-                        <span class="rating-text">${doctor.rating} • ${doctor.reviews} reviews</span>
+                    <div class="doctor-details">
+                        <div class="doctor-rating">
+                            <span class="stars">${stars}</span>
+                            <span class="rating-text">${doctor.rating} • ${doctor.reviews} reviews</span>
+                        </div>
+                        <div class="doctor-meta">
+                            <div class="meta-item">
+                                <span>👨‍⚕️</span>
+                                <span>${doctor.experience}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>📍</span>
+                                <span>${doctor.location}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>💰</span>
+                                <span>${doctor.consultationFee}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
+
+            // Add keyboard support
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    selectDoctor(doctor, card);
+                }
+            });
 
             return card;
         }
@@ -718,25 +1248,100 @@
 
             cardElement.classList.add('selected');
             selectedDoctor = doctor;
-            document.getElementById('floatingBookBtn').classList.add('active');
+            
+            const bookBtn = document.getElementById('floatingBookBtn');
+            const selectedDoctorName = document.getElementById('selectedDoctorName');
+            selectedDoctorName.textContent = doctor.name;
+            
+            bookBtn.classList.add('active');
             
             // Haptic feedback
             if (navigator.vibrate) {
                 navigator.vibrate(50);
             }
+
+            showNotification(`${doctor.name} selected`);
+        }
+
+        function filterDoctors(filterType) {
+            if (!allDoctors || allDoctors.length === 0) return;
+            
+            currentFilter = filterType;
+            updateFilterButtons();
+            
+            let filteredDoctors = [...allDoctors];
+            
+            switch(filterType) {
+                case 'available':
+                    filteredDoctors = allDoctors.filter(doc => doc.availability === 'available');
+                    break;
+                case 'top-rated':
+                    filteredDoctors = allDoctors.filter(doc => doc.rating >= 4.8).sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'nearby':
+                    filteredDoctors = allDoctors.sort((a, b) => {
+                        const distanceA = parseFloat(a.location.split(' ')[0]);
+                        const distanceB = parseFloat(b.location.split(' ')[0]);
+                        return distanceA - distanceB;
+                    });
+                    break;
+                default:
+                    break;
+            }
+            
+            // Remove existing doctor cards but keep header and filters
+            const doctorsList = document.getElementById('doctorsList');
+            const cards = doctorsList.querySelectorAll('.doctor-card');
+            cards.forEach(card => card.remove());
+            
+            // Add filtered doctors
+            if (filteredDoctors.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <div class="empty-icon">👨‍⚕️</div>
+                    <p class="empty-text">No doctors found for this filter</p>
+                `;
+                doctorsList.appendChild(emptyState);
+            } else {
+                filteredDoctors.forEach(doctor => {
+                    const doctorCard = createDoctorCard(doctor);
+                    doctorsList.appendChild(doctorCard);
+                });
+            }
+            
+            // Animate new cards
+            animateCards();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="filterDoctors('${currentFilter}')"]`).classList.add('active');
         }
 
         function bookAppointment() {
             if (!selectedDoctor) return;
 
             const bookBtn = document.getElementById('floatingBookBtn');
-            bookBtn.innerHTML = 'Processing...';
+            const originalText = bookBtn.innerHTML;
+            bookBtn.innerHTML = '⏳ Processing...';
             bookBtn.disabled = true;
 
+            // Simulate API call
             setTimeout(() => {
+                const confirmedDoctorName = document.getElementById('confirmedDoctorName');
+                confirmedDoctorName.textContent = selectedDoctor.name;
                 document.getElementById('successModal').classList.add('active');
-                bookBtn.innerHTML = 'Book Appointment';
+                
+                bookBtn.innerHTML = originalText;
                 bookBtn.disabled = false;
+
+                // Haptic feedback for success
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
             }, 2000);
         }
 
@@ -744,6 +1349,7 @@
             document.getElementById('successModal').classList.remove('active');
             setTimeout(() => {
                 goBack();
+                showNotification('Appointment confirmed! Check your email for details.');
             }, 300);
         }
 
@@ -760,14 +1366,29 @@
             
             selectedDoctor = null;
             currentCategory = null;
+            allDoctors = [];
+            
+            // Clear search if active
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput.value) {
+                searchInput.value = '';
+                clearSearch();
+            }
         }
 
         function searchDoctors(query) {
-            if (!query.trim()) {
+            const clearBtn = document.querySelector('.clear-search');
+            
+            if (query.trim()) {
+                clearBtn.classList.add('visible');
+            } else {
+                clearBtn.classList.remove('visible');
                 if (currentCategory) return;
                 goBack();
                 return;
             }
+
+            if (query.length < 2) return; // Wait for at least 2 characters
 
             const loading = document.getElementById('loading');
             const categories = document.getElementById('categories');
@@ -780,20 +1401,18 @@
                 loading.style.display = 'none';
                 doctorsList.innerHTML = `<h2 class="section-title" style="margin-bottom: 25px;">Search Results</h2>`;
 
-                let found = false;
+                let found = [];
                 Object.keys(doctors).forEach(category => {
                     doctors[category].forEach(doctor => {
                         if (doctor.name.toLowerCase().includes(query.toLowerCase()) ||
                             doctor.specialty.toLowerCase().includes(query.toLowerCase()) ||
                             category.toLowerCase().includes(query.toLowerCase())) {
-                            const doctorCard = createDoctorCard(doctor);
-                            doctorsList.appendChild(doctorCard);
-                            found = true;
+                            found.push(doctor);
                         }
                     });
                 });
 
-                if (!found) {
+                if (found.length === 0) {
                     const emptyState = document.createElement('div');
                     emptyState.className = 'empty-state';
                     emptyState.innerHTML = `
@@ -801,57 +1420,121 @@
                         <p class="empty-text">No doctors found for "${query}"</p>
                     `;
                     doctorsList.appendChild(emptyState);
+                } else {
+                    found.forEach(doctor => {
+                        const doctorCard = createDoctorCard(doctor);
+                        doctorsList.appendChild(doctorCard);
+                    });
                 }
 
                 doctorsList.classList.add('active');
                 document.querySelector('.back-btn').classList.add('active');
-            }, 800);
+                animateCards();
+            }, 600);
+        }
+
+        function clearSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const clearBtn = document.querySelector('.clear-search');
+            
+            searchInput.value = '';
+            clearBtn.classList.remove('visible');
+            searchInput.focus();
+            
+            if (!currentCategory) {
+                goBack();
+            }
         }
 
         // Performance optimizations
         document.addEventListener('touchstart', function() {}, true);
         
-        function vibrate() {
+        function vibrate(pattern = 30) {
             if (navigator.vibrate) {
-                navigator.vibrate(30);
+                navigator.vibrate(pattern);
             }
         }
 
+        // Enhanced click handler with better feedback
         document.addEventListener('click', function(e) {
-            if (e.target.matches('button, .category-card, .doctor-card')) {
+            if (e.target.matches('button, .category-card, .doctor-card, [role="button"]')) {
                 vibrate();
+                
+                // Add visual feedback
+                e.target.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    e.target.style.transform = '';
+                }, 100);
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('successModal');
+                if (modal.classList.contains('active')) {
+                    closeModal();
+                } else if (currentCategory || document.querySelector('.search-input').value) {
+                    goBack();
+                }
             }
         });
 
         // Prevent body scroll when modal is open
-        document.getElementById('successModal').addEventListener('transitionstart', function(e) {
-            if (e.target.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            }
+        const modal = document.getElementById('successModal');
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    const isActive = modal.classList.contains('active');
+                    document.body.style.overflow = isActive ? 'hidden' : '';
+                }
+            });
         });
+        observer.observe(modal, { attributes: true });
 
-        document.getElementById('successModal').addEventListener('transitionend', function(e) {
-            if (!e.target.classList.contains('active')) {
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Smooth card animations on load
+        // Smooth card animations
         function animateCards() {
-            const cards = document.querySelectorAll('.doctor-card, .category-card');
+            const cards = document.querySelectorAll('.doctor-card:not(.animated), .category-card:not(.animated)');
             cards.forEach((card, index) => {
+                card.classList.add('animated');
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(30px)';
+                
                 setTimeout(() => {
                     card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
-                }, index * 100);
+                }, index * 50);
             });
         }
 
-        // Call animation on page load
-        window.addEventListener('load', animateCards);
+        // Initialize app
+        window.addEventListener('load', function() {
+            animateCards();
+            
+            // Preload critical resources
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'font';
+            link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap';
+            document.head.appendChild(link);
+        });
+
+        // Service worker for offline support (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Register service worker here if needed
+            });
+        }
+
+        // Handle online/offline status
+        window.addEventListener('online', function() {
+            showNotification('Connection restored', 2000);
+        });
+
+        window.addEventListener('offline', function() {
+            showNotification('You are offline', 3000);
+        });
     </script>
 </body>
 </html>
